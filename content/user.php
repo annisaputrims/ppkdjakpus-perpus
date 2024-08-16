@@ -1,6 +1,5 @@
 <?php
-$queryUser = mysqli_query($koneksi, "SELECT *  FROM user ORDER BY id DESC");
-
+$queryUser = mysqli_query($koneksi, "SELECT level.nama_level, user.* FROM user LEFT JOIN level ON level.id = user.id_level ORDER BY id DESC");
 ?>
 
 <div class="container mt-5"> <!-- mt=margin-top -->
@@ -24,14 +23,14 @@ $queryUser = mysqli_query($koneksi, "SELECT *  FROM user ORDER BY id DESC");
                     <?php endif ?>
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
+                            <tr style="text-align: center;">
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="text-align: center;">
                             <?php $no = 1;
                             while ($rowUser = mysqli_fetch_assoc($queryUser)) : ?>
                                 <tr>
@@ -45,7 +44,22 @@ $queryUser = mysqli_query($koneksi, "SELECT *  FROM user ORDER BY id DESC");
                                 </tr>
                             <?php endwhile ?>
                         </tbody>
+                        <?php
+
+                        $no = 1;
+                        while ($rowUser = mysqli_fetch_assoc($queryUser)) : ?>
+                            <tr>
+                                <td><?php echo $no++ ?></td>
+                                <td><?php echo $rowUser['nama_level'] ?></td>
+                                <td><?php echo $rowUser['nama_lengkap'] ?></td>
+                                <td><?php echo $rowUser['email'] ?></td>
+                                <td>
+                                    <a href="?pg=tambah-user&edit<?php echo $rowUser['id'] ?>" class="btn btn-sm btn-success">EDIT</a>
+                                    <a onclick="return confirm('apakah anda yakin mengahpus data ini??')" href="?pg=tambah-user&delete=<?php echo $rowUser['id'] ?>" class="brtn btn-sm btn">Delete</a>
+                                </td>
+                            </tr>
                     </table>
+                <?php endwhile ?>
                 </div>
             </div>
         </div>

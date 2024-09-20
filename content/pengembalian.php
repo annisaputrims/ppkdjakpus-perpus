@@ -1,5 +1,5 @@
 <?php
-$queryPinjam = mysqli_query($koneksi, "SELECT anggota.nama_lengkap as nama_anggota, user.nama_lengkap, peminjaman.* FROM peminjaman LEFT JOIN anggota ON anggota.id = peminjaman.id_anggota LEFT JOIN user ON user.id = peminjaman.id_user WHERE deleted_at = 0 ORDER BY id DESC");
+$queryPinjam = mysqli_query($koneksi, "SELECT anggota.nama_lengkap as nama_anggota, user.nama_lengkap as nama_user, peminjaman.* FROM peminjaman LEFT JOIN anggota ON anggota.id = peminjaman.id_anggota LEFT JOIN user ON user.id = peminjaman.id_user WHERE deleted_at = 0 ORDER BY id DESC");
 ?>
 
 <div class="container mt-5"> <!-- mt=margin-top -->
@@ -44,7 +44,7 @@ $queryPinjam = mysqli_query($koneksi, "SELECT anggota.nama_lengkap as nama_anggo
                                     <td><?php echo $rowPinjam['tgl_pinjam'] ?></td>
                                     <td><?php echo $rowPinjam['tgl_kembali'] ?></td>
                                     <td><?php echo $rowPinjam['status'] ?></td>
-                                    <td><?php echo $rowPinjam['nama_lengkap'] ?></td>
+                                    <td><?php echo $rowPinjam['nama_user'] ?></td>
                                     <td>
                                         <a href="?pg=tambah-pengembalian&detail=<?php echo $rowPinjam['id'] ?>" class="btn btn-sm btn-primary">Detail</a>
                                     </td>
